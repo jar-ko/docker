@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.9.13-management-alpine
+    ports:
+      - 15672:15672
+      - 5672:5672
+    environment:
+      RABBITMQ_DEFAULT_USER: test
+      RABBITMQ_DEFAULT_PASS: test
+
+  wiremock:
+    container_name: wiremock
+    image: wiremock/wiremock:2.32.0-alpine
+    command: /docker-entrypoint.sh --global-response-templating --verbose --print-all-network-traffic
+    ports:
+      - 8080:8080
+      - 8443:8443
